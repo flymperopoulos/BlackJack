@@ -28,35 +28,57 @@ def createDeck(numberOfDecks):
 
 # print createDeck(1)
 
-def see_choices(decks, whoPlays, currentScore,nextDecision):
+def see_choices(decks, currentScore, nextDecision, whoPlays):
 
-	# nextDecision = raw_input("Do you want to hit or pass? ")
-
+	# nextDecision = str(raw_input("Do you want to hit or pass? "))
+	# whoPlays = str(raw_input("Do you want to be the player or the dealer? "))
 	# Examines the player's case
 	if whoPlays == 'player':
 		if nextDecision == 'pass':
-			return "Your current score is still equal to " + str(currentScore) + "."
+			print "Your current score is still equal to " + str(currentScore) + "."
+			return currentScore
 		if nextDecision == 'hit':
 			newCard = random.choice(random.choice(createDeck(1)))
 			print newCard
 			typeNewCard = "You drew a " + newCard[1][0] + " of " + newCard[0] + "."
 			print typeNewCard
+			print type(currentScore)
+			print type(newCard[1][1])
 			newScore = currentScore + newCard[1][1]
-			return "Your new score is " + str(newScore)
+			print "Your new score is " + str(newScore)
+			return newScore
 
 	# Examines the dealer's case
 	if whoPlays == 'dealer':
 		if nextDecision == 'pass':
-			return "The dealer stands and his remaining total is " + str(currentScore)
+			print "The dealer stands and his remaining total is " + str(currentScore)
+			return currentScore
 		if nextDecision == 'hit':
 			newCardDealer = random.choice(random.choice(createDeck(1)))
 			newScoreDealer = currentScore + newCardDealer[1][1]
-			return "The dealers new score is " + str(newScoreDealer)
+			print "The dealers new score is " + str(newScoreDealer)
+			return newScoreDealer
 
+# print see_choices(createDeck(1),10, 'hit', 'player')
 
-# print see_choices(createDeck(1),'dealer',10,'hit')
+def see_more_choices(decks, whoPlays, currentScore):
 
+	if whoPlays == 'player':
 
-			
+		# Asks the player to input next decision
+		nextDecision = str(raw_input("What is going to be your next step, hit or pass? "))
+		currentScore = see_choices(decks, currentScore, nextDecision, whoPlays)
+		return currentScore
 
+	if whoPlays == 'dealer':
 
+		# Pre-determines the dealer's decision making proces.
+		if currentScore >= 16:
+			nextDecision = 'pass'
+		if currentScore <= 15:
+			nextDecision = 'hit'
+		currentScore = see_choices(decks, currentScore, nextDecision, whoPlays)
+		return currentScore
+
+if __name__ == '__main__':
+	print see_more_choices(createDeck(numberOfDecks=1),'player',see_choices(createDeck(numberOfDecks=1),12,'hit','player'))
