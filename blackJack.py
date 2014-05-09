@@ -31,6 +31,7 @@ def createDeck(numberOfDecks):
 def see_choices(decks, whoPlays, currentScore,nextDecision):
 
 	# nextDecision = raw_input("Do you want to hit or pass? ")
+
 	# Examines the player's case
 	if whoPlays == 'player':
 		if nextDecision == 'pass':
@@ -43,7 +44,19 @@ def see_choices(decks, whoPlays, currentScore,nextDecision):
 			newScore = currentScore + newCard[1][1]
 			return "Your new score is " + str(newScore)
 
-print see_choices(createDeck(1),'player',10,'hit')
+	# Examines the dealer's case
+	if whoPlays == 'dealer':
+		if nextDecision == 'pass':
+			return "The dealer stands and his remaining total is " + str(currentScore)
+		if nextDecision == 'hit':
+			newCardDealer = random.choice(random.choice(createDeck(1)))
+			newScoreDealer = currentScore + newCardDealer[1][1]
+			return "The dealers new score is " + str(newScoreDealer)
+
+
+# print see_choices(createDeck(1),'dealer',10,'hit')
+
+
 			
 
 
