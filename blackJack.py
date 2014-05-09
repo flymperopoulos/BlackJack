@@ -1,3 +1,5 @@
+import random
+
 def createDeck(numberOfDecks):
 	# Create an empty newDeck
 	newDeck = []
@@ -24,4 +26,24 @@ def createDeck(numberOfDecks):
 	# Return the final Deck	
 	return newDeck
 
-print createDeck(1)
+# print createDeck(1)
+
+def see_choices(decks, whoPlays, currentScore,nextDecision):
+
+	# nextDecision = raw_input("Do you want to hit or pass? ")
+	# Examines the player's case
+	if whoPlays == 'player':
+		if nextDecision == 'pass':
+			return "Your current score is still equal to " + str(currentScore) + "."
+		if nextDecision == 'hit':
+			newCard = random.choice(random.choice(createDeck(1)))
+			print newCard
+			typeNewCard = "You drew a " + newCard[1][0] + " of " + newCard[0] + "."
+			print typeNewCard
+			newScore = currentScore + newCard[1][1]
+			return "Your new score is " + str(newScore)
+
+print see_choices(createDeck(1),'player',10,'hit')
+			
+
+
